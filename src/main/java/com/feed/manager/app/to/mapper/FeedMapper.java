@@ -58,7 +58,7 @@ public class FeedMapper {
 	 * @return
 	 */
 	public static List<Feed> mapFeeds(List<FeedItem> feedItems) {
-		List<Feed> feedList = new ArrayList<Feed>();
+		List<Feed> feedList = new ArrayList<>();
 		for (FeedItem feedItem : feedItems) {
 			feedList.add(mapFeed(feedItem));
 		}

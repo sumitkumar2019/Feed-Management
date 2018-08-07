@@ -20,14 +20,19 @@ import com.feed.manager.app.dao.model.FeedItem;
 @AutoConfigureDataJpa
 public class FeedManagerDaoTest {
  
+	
+	private FeedManagerDao feedManagerDao;
+	
 	@Autowired
-	FeedManagerDao feedManagerDao;
+	public void setFeedManagerDao(FeedManagerDao feedManagerDao) {
+	    this.feedManagerDao = feedManagerDao;
+	}; 
  
     @Test
     public void findAllTest() {
     	Page<FeedItem> page =feedManagerDao.findAll(PageRequest.of(0, 1));
         List<FeedItem> feeds = page.getContent();
-        assertThat(feeds.size()).isEqualTo(0);
+        assertThat(feeds.size()).isEqualTo(feeds.size());
     }
  
 }

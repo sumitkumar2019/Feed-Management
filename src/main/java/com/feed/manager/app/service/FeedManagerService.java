@@ -6,7 +6,7 @@ import com.feed.manager.app.to.Feed;
 
 public interface FeedManagerService {
 	
-	public void readData();
+	void readData();
 
-	public List<Feed> getLastUpdatedfeeds();
+	List<Feed> getLastUpdatedfeeds();
 }

@@ -29,8 +29,12 @@ import com.rometools.rome.feed.synd.SyndEntry;
 @AutoConfigurationPackage
 public class FeedManagerServiceTest{
 
+	private FeedManagerService feedManagerService;
+	
 	@Autowired
-	FeedManagerService feedManagerService;
+	public void setFeedManagerService(FeedManagerService feedManagerService) {
+		this.feedManagerService = feedManagerService;
+	}
 	
 	@MockBean
 	FeedManagerDao feedMangerDao;

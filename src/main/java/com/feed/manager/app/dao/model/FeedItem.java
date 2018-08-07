@@ -2,6 +2,7 @@ package com.feed.manager.app.dao.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ public class FeedItem {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@Column(length=1000000)
 	private String uri;
 
 	private String title;

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.PollableChannel;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,20 @@ import com.rometools.rome.feed.synd.SyndEntry;
 @Service
 public class FeedManagerServiceImpl implements FeedManagerService {
 
+	private PollableChannel feedChannel;
+	
+	private FeedManagerDao feedManagerDao;
+	
 	@Autowired
 	@Qualifier("feedChannel")
-	PollableChannel feedChannel;
+	public void setFeedChannel(PollableChannel feedChannel) {
+	    this.feedChannel = feedChannel;
+	}
 
 	@Autowired
-	FeedManagerDao feedManagerDao;
+	public void setFeedManagerDao(FeedManagerDao feedManagerDao) {
+	    this.feedManagerDao = feedManagerDao;
+	};
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -40,13 +49,14 @@ public class FeedManagerServiceImpl implements FeedManagerService {
 				break;
 			}
 		}
-
+		System.out.println("---------Please Wait Next Data Fetch After 10 Seconds---------");
 	}
 
 	@Override
 	public List<Feed> getLastUpdatedfeeds() {
-		Page<FeedItem> feedItems = feedManagerDao.findAll(PageRequest.of(0,10));
-		return FeedMapper.mapFeeds(feedItems.getContent());
+		Page<FeedItem> pageItems = feedManagerDao.findAll(PageRequest.of(0, 10, Sort.Direction.DESC, "id"));
+		List<FeedItem> feedItems = pageItems.getContent();
+		return FeedMapper.mapFeeds(feedItems);
 	}
 
 }
